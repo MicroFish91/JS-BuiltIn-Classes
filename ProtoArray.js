@@ -1,12 +1,25 @@
 class ProtoArray {
   constructor(...args){
-    this.length = args.length || 0;
-    this.values = this._assignArgs(args);
+    this.length = this._assignLen(args);
+    this.values = this._assignVals(args);
   }
-  _assignArgs(args){
+  _assignLen(args){
+    switch(args.length){
+      case undefined: return 0;
+      case 1: return args[0];
+      default: return args.length;
+    }
+  }
+  _assignVals(args){
     let values = {};
-    for(let index = 0; index < args.length; index++){
-      values[index] = args[index];
+    if(args.length !== 1){
+      for(let index = 0; index < args.length; index++){
+        values[index] = args[index];
+      }
+    } else {
+      for(let index = 0; index < args[0]; index++){
+        values[index] = undefined;
+      }
     }
     return values;
   }
@@ -16,6 +29,14 @@ class ProtoArray {
   _getValues(){
     return Object.values(this.values);
   }
+  fill(value, start = 0, end = this.length){
+    (start < 0) && (start += this.length);  // edge-cases defined by MDN
+    (end < 0) && (end += this.length);  //edge-cases defined by MDN
+    for(let index = start; index < end; index++){
+      this.values[index] = value;
+    }
+    return this.values;
+  }
   filter(callbackFn){
     let filteredArray = new ProtoArray();
     const array = this._getValues();
@@ -24,6 +45,14 @@ class ProtoArray {
       callbackFn(this.values[index], index, array) && filteredArray.push(this.values[index]);
     }
     return filteredArray;
+  }
+  find(callbackFn){
+    const array = this._getValues();
+    for(let index = 0; index < this.length; index++){
+      // find((element, index, array) => { ... } )
+     if(callbackFn(this.values[index], index, array)) { return (this.values[index]); }
+    }
+    return undefined;
   }
   forEach(callbackFn){
     const array = this._getValues();
