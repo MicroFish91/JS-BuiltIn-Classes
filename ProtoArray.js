@@ -29,10 +29,18 @@ class ProtoArray {
   _getValues(){
     return Object.values(this.values);
   }
-  fill(value, start = 0, end = this.length){
+  every(callbackFn) {
+    const array = this._getValues();
+    for(let index = 0; index < this.length; index++) {
+      // every((element, index, array) => { ... } )
+      if( !callbackFn(this.values[index], index, array) ) { return false }
+    }
+    return true;
+  }
+  fill(value, start = 0, end = this.length) {
     (start < 0) && (start += this.length);  // edge-cases defined by MDN
     (end < 0) && (end += this.length);  //edge-cases defined by MDN
-    for(let index = start; index < end; index++){
+    for(let index = start; index < end; index++) {
       this.values[index] = value;
     }
     return this.values;
@@ -50,9 +58,17 @@ class ProtoArray {
     const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // find((element, index, array) => { ... } )
-     if(callbackFn(this.values[index], index, array)) { return (this.values[index]); }
+     if(callbackFn(this.values[index], index, array)) { return (this.values[index]) }
     }
     return undefined;
+  }
+  findIndex(callbackFn){
+    const array = this._getValues();
+    for(let index = 0; index < this.length; index++){
+      // findIndex((element, index, array) => { ... } )
+      if(callbackFn(this.values[index], index, array)) { return index }
+    }
+    return -1;
   }
   forEach(callbackFn){
     const array = this._getValues();
@@ -90,3 +106,7 @@ class ProtoArray {
     return accumulated;
   }
 }
+
+let array = new ProtoArray(1, 1, 2, 5, 7, 9, 10);
+
+console.log(array.findIndex(el => el === 7));
