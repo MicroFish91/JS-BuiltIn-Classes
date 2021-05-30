@@ -26,8 +26,23 @@ class ProtoArray {
   _display(){
     console.log(this._getValues());
   }
+  _extractForeignValues(values) {
+    if (values?.constructor?.name === 'ProtoArray') {
+      return Object.values(values.values);
+    } else {
+      return values;
+    }
+  }
   _getValues(){
     return Object.values(this.values);
+  }
+  // Need to call the array.flat method before returning
+  concat(...values){
+    let newArray = [ ...this._getValues() ];
+    for(let index = 0; index < values.length; index++){
+      newArray.push(values[index]);
+    }
+    return newArray;
   }
   every(callbackFn) {
     const array = this._getValues();
@@ -106,7 +121,3 @@ class ProtoArray {
     return accumulated;
   }
 }
-
-let array = new ProtoArray(1, 1, 2, 5, 7, 9, 10);
-
-console.log(array.findIndex(el => el === 7));
