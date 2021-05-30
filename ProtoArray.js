@@ -26,21 +26,25 @@ class ProtoArray {
   _display(){
     console.log(this._getValues());
   }
-  _extractForeignValues(values) {
-    if (values?.constructor?.name === 'ProtoArray') {
-      return Object.values(values.values);
-    } else {
-      return values;
-    }
+  _standardizeForeignValues(values) {
+    return (this.isProtoArray(values)) ? Object.values(values.values) : values;
   }
   _getValues(){
     return Object.values(this.values);
   }
-  // Need to call the array.flat method before returning
   concat(...values){
-    let newArray = [ ...this._getValues() ];
+    let newArray = new ProtoArray( ...this._getValues() );
+    let standardizedVal;
     for(let index = 0; index < values.length; index++){
-      newArray.push(values[index]);
+      // Could have skipped standardizing and checked only "ProtoArray" but decided to make it compatible for both
+      standardizedVal = this._standardizeForeignValues(values[index]);
+      if(standardizedVal?.constructor?.name === "Array"){
+        for(let indexTwo = 0; indexTwo < standardizedVal.length; indexTwo++){
+          newArray.push(standardizedVal[indexTwo]);
+        }
+      } else {
+        newArray.push(standardizedVal);
+      }
     }
     return newArray;
   }
@@ -48,7 +52,9 @@ class ProtoArray {
     const array = this._getValues();
     for(let index = 0; index < this.length; index++) {
       // every((element, index, array) => { ... } )
-      if( !callbackFn(this.values[index], index, array) ) { return false }
+      if(!callbackFn(this.values[index], index, array)) { 
+        return false; 
+      }
     }
     return true;
   }
@@ -73,7 +79,9 @@ class ProtoArray {
     const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // find((element, index, array) => { ... } )
-     if(callbackFn(this.values[index], index, array)) { return (this.values[index]) }
+      if(callbackFn(this.values[index], index, array)) { 
+        return (this.values[index]); 
+      }
     }
     return undefined;
   }
@@ -81,7 +89,9 @@ class ProtoArray {
     const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // findIndex((element, index, array) => { ... } )
-      if(callbackFn(this.values[index], index, array)) { return index }
+      if(callbackFn(this.values[index], index, array)) { 
+        return index;
+      }
     }
     return -1;
   }
@@ -91,6 +101,17 @@ class ProtoArray {
       // MDN: forEach((element, index, array) => { ... } )
       callbackFn(this.values[index], index, array);
     }
+  }
+  indexOf(value, fromIndex = 0){
+    for(let index = fromIndex; index < this.length; index++){
+      if(this.values[index] === value){
+        return index;
+      }
+    }
+    return -1;
+  }
+  isProtoArray(value){
+    return (value?.constructor?.name === "ProtoArray") ? true : false;
   }
   map(callbackFn){
     let mappedArray = new ProtoArray();
@@ -121,3 +142,9 @@ class ProtoArray {
     return accumulated;
   }
 }
+
+const array1 = new ProtoArray('a', 'b', 'c');
+const array2 = true;
+const array3 = array1.concat(array2);
+
+console.log(array3);
