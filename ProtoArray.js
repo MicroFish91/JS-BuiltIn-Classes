@@ -38,6 +38,7 @@ class ProtoArray {
     for(let index = 0; index < values.length; index++){
       // Could have skipped standardizing and checked only "ProtoArray" but decided to make it compatible for both
       standardizedVal = this._standardizeForeignValues(values[index]);
+      console.log(standardizedVal);
       if(standardizedVal?.constructor?.name === "Array"){
         for(let indexTwo = 0; indexTwo < standardizedVal.length; indexTwo++){
           newArray.push(standardizedVal[indexTwo]);
@@ -134,9 +135,8 @@ class ProtoArray {
   join(separator){
     let newString = '';
     for(let index = 0; index < this.length; index++){
-      newString += this.values[index] + separator;
+      newString += this.values[index] + ((index !== this.length - 1) && separator);
     }
-    newString -= separator;
     return newString;
   }
   map(callbackFn){
@@ -196,5 +196,12 @@ class ProtoArray {
       }
     }
     return false;    
+  }
+  toString(){
+    return this.join(',');
+  }
+  unshift(...values){
+    this.length += values.length;
+    this.values = new ProtoArray(...values, ...this._getValues()).values;
   }
 }
