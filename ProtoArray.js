@@ -113,6 +113,14 @@ class ProtoArray {
   isProtoArray(value){
     return (value?.constructor?.name === "ProtoArray") ? true : false;
   }
+  join(separator){
+    let newString = '';
+    for(let index = 0; index < this.length; index++){
+      newString += this.values[index] + separator;
+    }
+    newString -= separator;
+    return newString;
+  }
   map(callbackFn){
     let mappedArray = new ProtoArray();
     const array = this._getValues();
@@ -141,10 +149,14 @@ class ProtoArray {
     }
     return accumulated;
   }
+  reverse(){
+    let front, back;
+    for(let index = 0; index < this.length / 2 - 1; index++){
+      front = this.values[index];
+      back = this.values[this.length - index];
+      this.values[index] = back;
+      this.values[this.length - index] = front;
+    }
+    return this.values;
+  }
 }
-
-const array1 = new ProtoArray('a', 'b', 'c');
-const array2 = true;
-const array3 = array1.concat(array2);
-
-console.log(array3);
