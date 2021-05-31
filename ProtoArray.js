@@ -127,6 +127,7 @@ class ProtoArray {
     }
     return -1;
   }
+  // Analogous to Array.isArray()
   isProtoArray(value){
     return (value?.constructor?.name === "ProtoArray") ? true : false;
   }
@@ -175,5 +176,15 @@ class ProtoArray {
       this.values[this.length - index] = front;
     }
     return this.values;
+  }
+  shift(){
+    if(this.length === 0) { return undefined }
+    const shiftedVal = this.values[0];
+    delete this.values[0];
+    this.length--;
+    for(let index = 0; index < this.length; index++){
+      this.values[index] = this.values[index + 1];
+    }
+    return shiftedVal;
   }
 }
