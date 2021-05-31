@@ -102,6 +102,23 @@ class ProtoArray {
       callbackFn(this.values[index], index, array);
     }
   }
+  includes(value, fromIndex = 0){
+    // MDN Edge Cases
+    if(fromIndex > this.length){
+      return false;
+    } else if (fromIndex < 0 && Math.abs(fromIndex) < this.length){
+      fromIndex = this.length - fromIndex;
+    } else if (fromIndex < 0 && Math.abs(fromIndex) >= this.length){
+      fromIndex = 0;
+    }
+    // Main Solution
+    for(let index = fromIndex; index < this.length; index++){
+      if(this.values[index] === value) {
+        return true;
+      }
+    }
+    return false;
+  }
   indexOf(value, fromIndex = 0){
     for(let index = fromIndex; index < this.length; index++){
       if(this.values[index] === value){
