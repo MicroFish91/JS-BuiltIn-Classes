@@ -187,4 +187,14 @@ class ProtoArray {
     }
     return shiftedVal;
   }
+  some(callbackFn){
+    const array = this._getValues();
+    for(let index = 0; index < this.length; index++){
+      // some((element, index, array) => { ... } )
+      if(callbackFn(this.values[index], index, array)){
+        return true;
+      }
+    }
+    return false;    
+  }
 }
