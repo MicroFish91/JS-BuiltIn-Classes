@@ -187,6 +187,13 @@ class ProtoArray {
     }
     return shiftedVal;
   }
+  slice(start = 0, end = this.length){
+    let newArray = new ProtoArray();
+    for(let index = start; index < end; index++){
+      newArray.push(this.values[index]);
+    }
+    return newArray._getValues();
+  }
   some(callbackFn){
     const array = this._getValues();
     for(let index = 0; index < this.length; index++){
@@ -197,6 +204,41 @@ class ProtoArray {
     }
     return false;    
   }
+  splice(start = 0, deleteCount = 0, ...values){
+    // MDN Edge Cases
+    if(start > this.length){
+      start = this.length;
+    } else if (start < 0) {
+      start = array.length - start;
+    } else if (this.length + start < 0) {
+      start = 0;
+    }
+
+    if(deleteCount > this.length - start){
+      deleteCount = this.length - start;
+    } else if (deleteCount <= 0 && !values) {
+      return [];
+    }
+
+    // Main
+    if(deleteCount <= 0) {
+      this.values = new ProtoArray(
+        ...this.slice(0, start), 
+        ...values, 
+        ...this.slice(start + values.length - 1, this.length)
+      ).values;
+      this.length = this.length + values.length;
+      return [];
+    } else {
+      let spliced = [ ...this.slice(start, start + deleteCount)];
+      this.values = new ProtoArray(
+        ...this.slice(0, start), 
+        ...values, 
+        ...this.slice(start + values.length + deleteCount - 1, this.length)
+      ).values;
+      return spliced;
+    }
+  }
   toString(){
     return this.join(',');
   }
@@ -205,3 +247,13 @@ class ProtoArray {
     this.values = new ProtoArray(...values, ...this._getValues()).values;
   }
 }
+
+const months = new ProtoArray('Jan', 'March', 'April', 'June');
+months.splice(1, 0, 'Feb');
+
+// expected output: Array ["Jan", "Feb", "March", "April", "June"]
+
+console.log(months.splice(4, 1, 'May'));
+// replaces 1 element at index 4
+console.log(months);
+// expected output: Array ["Jan", "Feb", "March", "April", "May"]
