@@ -149,6 +149,19 @@ class ProtoArray {
     }
     return newString;
   }
+  lastIndexOf(value, fromIndex = (this.length - 1)){
+    if(fromIndex > (this.length - 1)) {
+      fromIndex = this.length - 1;
+    } else if (fromIndex < 0) {
+      fromIndex = this.length + fromIndex;
+    }
+    for(let index = fromIndex; index >= 0; index--){
+      if(this.values[index] === value){
+        return index;
+      }
+    }
+    return -1;
+  }
   map(callbackFn){
     let mappedArray = new ProtoArray();
     const array = this._getValues();
