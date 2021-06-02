@@ -27,7 +27,7 @@ class ProtoArray {
     console.log(this._getValues());
   }
   _standardizeForeignValues(values) {
-    return (this.isProtoArray(values)) ? Object.values(values.values) : values;
+    return (ProtoArray.isProtoArray(values)) ? Object.values(values.values) : values;
   }
   _getValues(){
     return Object.values(this.values);
@@ -38,7 +38,6 @@ class ProtoArray {
     for(let index = 0; index < values.length; index++){
       // Could have skipped standardizing and checked only "ProtoArray" but decided to make it compatible for both
       standardizedVal = this._standardizeForeignValues(values[index]);
-      console.log(standardizedVal);
       if(standardizedVal?.constructor?.name === "Array"){
         for(let indexTwo = 0; indexTwo < standardizedVal.length; indexTwo++){
           newArray.push(standardizedVal[indexTwo]);
@@ -96,6 +95,17 @@ class ProtoArray {
     }
     return -1;
   }
+  flat(depth = 1){
+    // To flat single level array is equivalent to
+    // arr.reduce((acc, val) => acc.concat(val), [])
+    // So use recursion
+    return depth > 0 ? this.reduce((acc, val) => {
+      if(Array.isArray(val) || ProtoArray.isProtoArray(val)) {
+        return acc.concat(val.flat(depth - 1));
+      }
+      return acc.concat(val);
+    }, []) : this.slice();
+  }
   forEach(callbackFn){
     const array = this._getValues();
     for (let index = 0; index < this.length; index++){
@@ -129,7 +139,7 @@ class ProtoArray {
     return -1;
   }
   // Analogous to Array.isArray()
-  isProtoArray(value){
+  static isProtoArray(value){
     return (value?.constructor?.name === "ProtoArray") ? true : false;
   }
   join(separator){
@@ -221,7 +231,7 @@ class ProtoArray {
     }
 
     // Main
-    let spliced = [ ...this.slice(start, start + deleteCount)];
+    const spliced = [ ...this.slice(start, start + deleteCount)];
     this.values = new ProtoArray(
       ...this.slice(0, start), 
       ...values, 
