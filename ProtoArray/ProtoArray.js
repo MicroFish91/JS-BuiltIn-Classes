@@ -6,7 +6,12 @@ module.exports = class ProtoArray {
   _assignLen(args){
     switch(args.length){
       case undefined: return 0;
-      case 1: return args[0];
+      case 1: 
+        if(ProtoArray.isProtoArray(args[0]) || Array.isArray(args[0])){
+          return 1;
+        } else {
+          return args[0];
+        }
       default: return args.length;
     }
   }
@@ -16,6 +21,8 @@ module.exports = class ProtoArray {
       for(let index = 0; index < args.length; index++){
         values[index] = args[index];
       }
+    } else if (args.length === 1 && (Array.isArray(args[0]) || ProtoArray.isProtoArray(args[0]))) {
+      values[0] = args[0];
     } else {
       for(let index = 0; index < args[0]; index++){
         values[index] = undefined;
@@ -64,7 +71,7 @@ module.exports = class ProtoArray {
     for(let index = start; index < end; index++) {
       this.values[index] = value;
     }
-    return this.values;
+    return this;
   }
   filter(callbackFn){
     let filteredArray = new ProtoArray();
