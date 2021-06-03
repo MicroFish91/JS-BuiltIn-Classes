@@ -1,4 +1,4 @@
-class ProtoArray {
+module.exports = class ProtoArray {
   constructor(...args){
     this.length = this._assignLen(args);
     this.values = this._assignVals(args);
@@ -150,11 +150,13 @@ class ProtoArray {
     return newString;
   }
   lastIndexOf(value, fromIndex = (this.length - 1)){
+    // MDN Edge Cases
     if(fromIndex > (this.length - 1)) {
       fromIndex = this.length - 1;
     } else if (fromIndex < 0) {
       fromIndex = this.length + fromIndex;
     }
+
     for(let index = fromIndex; index >= 0; index--){
       if(this.values[index] === value){
         return index;

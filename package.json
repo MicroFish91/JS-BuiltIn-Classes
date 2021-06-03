@@ -1,0 +1,16 @@
+{
+  "name": "JS-BuiltIn-Classes",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha './test/ProtoArray/index.spec.js' --watch"
+  },
+  "repository": "https://github.com/MicroFish91/JS-BuiltIn-Classes.git",
+  "author": "Matthew Fisher <mwfisher91@gmail.com>",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0"
+  }
+}
