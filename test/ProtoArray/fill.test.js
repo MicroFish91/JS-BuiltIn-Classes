@@ -8,24 +8,13 @@ module.exports = function() {
       const result2 = new ProtoArray(5).fill('hello');
       const result3 = new ProtoArray(6).fill(null);
 
-      expect(result).to.eql({
-        length: 4,
-        values: { 0: 5, 1: 5, 2: 5, 3: 5 }
-      });
-      expect(result2).to.eql({
-        length: 5,
-        values: { 0: 'hello', 1: 'hello', 2: 'hello', 3: 'hello', 4: 'hello' }
-      });
-      expect(result3).to.eql({
-        length: 6,
-        values: { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null }
-      });
+      expect(result).to.eql({ length: 4, values: { 0: 5, 1: 5, 2: 5, 3: 5 } });
+      expect(result2).to.eql({ length: 5, values: { 0: 'hello', 1: 'hello', 2: 'hello', 3: 'hello', 4: 'hello' } });
+      expect(result3).to.eql({ length: 6, values: { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null } });
     });
     it('Fill operates with two params', function() {
-      const arrayOne = new ProtoArray(1, 2, 3, 4);
-      const arrayTwo = new ProtoArray(1, 2, 3, 4);
-      const result = arrayOne.fill(0, 2);
-      const result2 = arrayTwo.fill(5, 1);
+      const result = new ProtoArray(1, 2, 3, 4).fill(0, 2);
+      const result2 = new ProtoArray(1, 2, 3, 4).fill(5, 1);
 
       expect(result).to.eql({ length: 4, values: { 0: 1, 1: 2, 2: 0, 3: 0 } });
       expect(result2).to.eql({ length: 4, values: { 0: 1, 1: 5, 2: 5, 3: 5 } });
