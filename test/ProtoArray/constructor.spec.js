@@ -3,7 +3,7 @@ const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
   describe('ProtoArray Constructor', function(){
-    it('ProtoArray should process multiple parameters and all data types', function() {
+    it('Constructs multiple parameters and all data types', function() {
       const result = new ProtoArray(13.5, true, "hello", [1, 2, 3], new ProtoArray(1, 2, 3), {key1: 'hello'});
       expect(result).to.eql({
         length: 6,
@@ -13,7 +13,7 @@ module.exports = function() {
       });
     });
 
-    it('ProtoArray should process a single parameter as length', function(){
+    it('Constructs a single parameter as length', function(){
       const result = new ProtoArray(5);
       expect(result).to.eql({
         length: 5,
@@ -21,7 +21,7 @@ module.exports = function() {
       });
     });
 
-    it('ProtoArray should properly initialize when passed a single parameter as an Array', function(){
+    it('Constructs when passed a single parameter as an Array', function(){
       const result = new ProtoArray(new Array(1).fill(1));
       expect(result).to.eql({
         length: 1,
@@ -29,7 +29,7 @@ module.exports = function() {
       });
     });
 
-    it('ProtoArray should properly initialize when passed a single parameter as a ProtoArray', function(){
+    it('Constructs when passed a single parameter as a ProtoArray', function(){
       const result = new ProtoArray(new ProtoArray(1).fill(1));
       expect(result).to.eql({
         length: 1,
@@ -37,7 +37,7 @@ module.exports = function() {
       });
     });
 
-    it('ProtoArray should process no parameters as no values with length 0', function() {
+    it('Constructs no parameters as no values with length 0', function() {
       const result = new ProtoArray();
       expect(result).to.eql({
         length: 0,

@@ -56,12 +56,15 @@ module.exports = class ProtoArray {
     return newArray;
   }
   every(callbackFn) {
-    const array = this._getValues();
-    for(let index = 0; index < this.length; index++) {
+    let length = this.length;
+    for(let index = 0; index < length; index++) {
       // every((element, index, array) => { ... } )
-      if(!callbackFn(this.values[index], index, array)) { 
+      // Passed "this" instead of "this.values" to match MDN test behavior
+      if(!callbackFn(this.values[index], index, this)) {    
         return false; 
       }
+      // Added this line to match behavior shown by MDN Test Case #3
+      (this.length < length) ? length = this.length : null;
     }
     return true;
   }

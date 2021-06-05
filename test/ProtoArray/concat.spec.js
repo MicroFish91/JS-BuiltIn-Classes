@@ -3,7 +3,7 @@ const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
   describe('ProtoArray .concat()', function(){
-    it('ProtoArray should be able to concat another Array', function() {
+    it('Concats another Array', function() {
       const letters = new ProtoArray('a', 'b', 'c');
       const numbers = new Array(1, 2, 3);
       const result = letters.concat(numbers);
@@ -14,7 +14,7 @@ module.exports = function() {
       })
     });
 
-    it('ProtoArray should be able to concat another ProtoArray', function() {
+    it('Concats another ProtoArray', function() {
       const letters = new ProtoArray('a', 'b', 'c');
       const numbers = new ProtoArray(1, 2, 3);
       const result = letters.concat(numbers);
@@ -25,7 +25,7 @@ module.exports = function() {
       })
     });
 
-    it('ProtoArray should be able to concat multiple Arrays/ProtoArrays at once', function() {
+    it('Concats multiple Arrays/ProtoArrays at once', function() {
       const arrayOne = new ProtoArray(1, 2, 3);
       const arrayTwo = new ProtoArray(4, 5, 6);
       const arrayThree = new Array(7, 8, 9);
@@ -37,19 +37,22 @@ module.exports = function() {
       })
     });
 
-    it('ProtoArray should be able to concat nested Arrays/ProtoArrays', function() {
-      const arrayOne = new ProtoArray([1]);
-      const arrayTwo = new Array(new Array(1).fill(2));
-      const arrayThree = new Array(2, [3]);
-      const result = arrayOne.concat(arrayTwo, arrayThree);
+    it('Concats nested Arrays/ProtoArrays', function() {
+      const arrayOne = new ProtoArray(new ProtoArray(2, 3));
+      const arrayTwo = new Array(new Array(1));
+      const arrayThree = new Array(2, new ProtoArray(1));
+      const arrayFour = new ProtoArray(3, [2, 1]);
+      const result = arrayOne.concat(arrayTwo, arrayThree, arrayFour);
 
       expect(result).to.eql({
-        length: 4,
+        length: 6,
         values: { 
-          0: [1],
-          1: [2],
+          0: { length: 2, values: { 0: 2, 1: 3 } },
+          1: [ undefined ],
           2: 2,
-          3: [3]
+          3: { length: 1, values: { 0: undefined } },
+          4: 3,
+          5: [2, 1]
         }
       })
     });
