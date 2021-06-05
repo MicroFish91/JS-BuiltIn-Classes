@@ -70,7 +70,9 @@ module.exports = class ProtoArray {
   }
   fill(value, start = 0, end = this.length) {
     (start < 0) && (start += this.length);  // edge-cases defined by MDN
+    (start > this.length) && (start = this.length); // edge-cases defined by MDN
     (end < 0) && (end += this.length);  //edge-cases defined by MDN
+    (end > this.length) && (end = this.length); //edge-cases defined by MDN
     for(let index = start; index < end; index++) {
       this.values[index] = value;
     }

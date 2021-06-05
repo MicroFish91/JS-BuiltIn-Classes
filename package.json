@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "mocha './test/ProtoArray/index.spec.js' --watch"
+    "test": "mocha './test/ProtoArray/index.test.js' --watch"
   },
   "repository": "https://github.com/MicroFish91/JS-BuiltIn-Classes.git",
   "author": "Matthew Fisher <mwfisher91@gmail.com>",
