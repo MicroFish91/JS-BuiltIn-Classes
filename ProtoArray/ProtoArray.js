@@ -1,7 +1,7 @@
 module.exports = class ProtoArray {
   constructor(...args){
     this.length = this._assignLen(args);
-    this.values = this._assignVals(args);
+    this._assignVals(args);
   }
   _assignLen(args){
     switch(args.length){
@@ -16,19 +16,17 @@ module.exports = class ProtoArray {
     }
   }
   _assignVals(args){
-    let values = {};
     if(args.length !== 1){
       for(let index = 0; index < args.length; index++){
-        values[index] = args[index];
+        this[index] = args[index];
       }
     } else if (args.length === 1 && (Array.isArray(args[0]) || ProtoArray.isProtoArray(args[0]))) {
-      values[0] = args[0];
+      this[0] = args[0];
     } else {
       for(let index = 0; index < args[0]; index++){
-        values[index] = undefined;
+        this[index] = undefined;
       }
     }
-    return values;
   }
   _display(){
     console.log(this._getValues());
@@ -37,20 +35,21 @@ module.exports = class ProtoArray {
     return (ProtoArray.isProtoArray(values)) ? Object.values(values.values) : values;
   }
   _getValues(){
-    return Object.values(this.values);
+    const newProto = { ...this };
+    delete newProto['length'];
+    return Object.values(newProto);
   }
   concat(...values){
-    let newArray = new ProtoArray( ...this._getValues() );
-    let standardizedVal;
+    const newArray = new ProtoArray(...this._getValues());
+    let val;
     for(let index = 0; index < values.length; index++){
-      // Could have skipped standardizing and checked only "ProtoArray" but decided to make it compatible for both
-      standardizedVal = this._standardizeForeignValues(values[index]);
-      if(standardizedVal?.constructor?.name === "Array"){
-        for(let indexTwo = 0; indexTwo < standardizedVal.length; indexTwo++){
-          newArray.push(standardizedVal[indexTwo]);
+      val = values[index];
+      if(val?.constructor?.name === "Array" || val?.constructor?.name === "ProtoArray"){
+        for(let indexTwo = 0; indexTwo < val.length; indexTwo++){
+          newArray.push(val[indexTwo]);
         }
       } else {
-        newArray.push(standardizedVal);
+        newArray.push(val);
       }
     }
     return newArray;
@@ -60,7 +59,7 @@ module.exports = class ProtoArray {
     for(let index = 0; index < length; index++) {
       // every((element, index, array) => { ... } )
       // Passed "this" instead of "this.values" to match MDN test behavior
-      if(!callbackFn(this.values[index], index, this)) {    
+      if(!callbackFn(this[index], index, this)) {    
         return false; 
       }
       // Added this line to match behavior shown by MDN Test Case #3
@@ -74,16 +73,19 @@ module.exports = class ProtoArray {
     (end < 0) && (end += this.length);  //edge-cases defined by MDN
     (end > this.length) && (end = this.length); //edge-cases defined by MDN
     for(let index = start; index < end; index++) {
-      this.values[index] = value;
+      this[index] = value;
     }
     return this;
   }
   filter(callbackFn){
-    let filteredArray = new ProtoArray();
-    const array = this._getValues();
-    for(let index = 0; index < this.length; index++){
+    const filteredArray = new ProtoArray();
+    let length = this.length;
+    for(let index = 0; index < length; index++){
       // MDN: filter((element, index, array) => { ... } )
-      callbackFn(this.values[index], index, array) && filteredArray.push(this.values[index]);
+      callbackFn(this[index], index, this) && filteredArray.push(this[index]);
+      if(length < this.length){
+        length = this.length;
+      }
     }
     return filteredArray;
   }
@@ -186,13 +188,13 @@ module.exports = class ProtoArray {
     return mappedArray;
   }
   push(val){
-    this.values[this.length] = val;
+    this[this.length] = val;
     this.length++;
   }
   pop(){
     this.length--;
-    const val = this.values[this.length];
-    delete this.values[this.length];
+    const val = this[this.length];
+    delete this[this.length];
     return val;
   }
   reduce(callbackFn, initValue){

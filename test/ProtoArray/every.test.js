@@ -19,7 +19,7 @@ module.exports = function() {
       const arrayOne = new ProtoArray(1, 2, 3, 4);
       const elements = [];
       const result = arrayOne.every((elem, index, arr) => {
-        arr.values[index + 1] -= 1
+        arr[index + 1] -= 1
         elements.push(elem);
         return elem < 2;
       });
