@@ -83,9 +83,7 @@ module.exports = class ProtoArray {
     for(let index = 0; index < length; index++){
       // MDN: filter((element, index, array) => { ... } )
       callbackFn(this[index], index, this) && filteredArray.push(this[index]);
-      if(length < this.length){
-        length = this.length;
-      }
+      (this.length < length) ? length = this.length : null;
     }
     return filteredArray;
   }
