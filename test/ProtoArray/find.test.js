@@ -3,13 +3,44 @@ const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
   describe('ProtoArray .find()', function(){
-    it('Filter operates with simple, one-line callbacks', function() {
-      const result = new ProtoArray('spray', 'limit', 'elite', 'exuberant', 'destruction', 'present').filter(word => word.length > 6);
-      const result2 = new ProtoArray(12, 5, 8, 130, 44).filter(value => value >= 10);
-
-      expect(result).to.eql({ length: 3, 0: 'exuberant', 1: 'destruction', 2: 'present' });
-      expect(result2).to.eql({ length: 3, 0: 12, 1: 130, 2: 44 });      
+    it('Find returns the first value in a simple, one-line callback', function() {
+      const result = new ProtoArray(5, 12, 8, 130, 44).find(element => element > 10);
+      const result2 = new ProtoArray({name: 'apples', quantity: 2}, {name: 'bananas', quantity: 0}, {name: 'cherries', quantity: 5})
+                                      .find(fruit => fruit.name === 'cherries');
+      expect(result).to.eql(12);
+      expect(result2).to.eql({ name: 'cherries', quantity: 5 });  
     });
 
+    it('Find returns the first value in complex, multi-line callbacks', function() {
+      const isPrime = (element, index, array) => {
+         start = 2;
+        while (start <= Math.sqrt(element)) {
+          if (element % start++ < 1) {
+            return false;
+          }
+        }
+        return element > 1;
+      }
+      const result = [4, 6, 8, 12].find(isPrime);
+      const result2 = [4, 5, 8, 12].find(isPrime);
+
+      expect(result).to.eql(undefined);
+      expect(result2).to.eql(5);  
+    });
+
+    it('MDN #1: Deleted origin elements are still visited', function() {
+      const original = new ProtoArray(0, 1, 2, 3, 4, 5, 6);
+      const result = original.find((value, index, array) => {
+        if (index === 0) {
+          delete array[5];
+        }
+        if (index === 5) {
+          return true;
+        }
+        return false;
+      });
+      
+      expect(result).to.eql(undefined);
+    });
   }); // End describe
 }  // End wrapper function

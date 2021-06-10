@@ -11,5 +11,5 @@ describe('ProtoArray', function(){
   protoEveryTest();
   protoFillTest();
   protoFilterTest();
-  // protoFindTest();
+  protoFindTest();
 });

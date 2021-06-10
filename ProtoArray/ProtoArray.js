@@ -88,11 +88,10 @@ module.exports = class ProtoArray {
     return filteredArray;
   }
   find(callbackFn){
-    const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // find((element, index, array) => { ... } )
-      if(callbackFn(this.values[index], index, array)) { 
-        return (this.values[index]); 
+      if(callbackFn(this[index], index, this)) { 
+        return (this[index]); 
       }
     }
     return undefined;
