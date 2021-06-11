@@ -4,6 +4,7 @@ const protoEveryTest = require('./every.test.js');
 const protoFillTest = require('./fill.test.js');
 const protoFilterTest = require('./filter.test.js');
 const protoFindTest = require('./find.test.js');
+const protoFindIndexTest = require('./findIndex.test.js');
 
 describe('ProtoArray', function(){
   protoConstructorTest();
@@ -12,4 +13,5 @@ describe('ProtoArray', function(){
   protoFillTest();
   protoFilterTest();
   protoFindTest();
+  protoFindIndexTest();
 });

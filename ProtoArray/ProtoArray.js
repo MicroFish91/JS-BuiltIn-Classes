@@ -97,10 +97,9 @@ module.exports = class ProtoArray {
     return undefined;
   }
   findIndex(callbackFn){
-    const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // findIndex((element, index, array) => { ... } )
-      if(callbackFn(this.values[index], index, array)) { 
+      if(callbackFn(this[index], index, this)) { 
         return index;
       }
     }

@@ -21,12 +21,19 @@ module.exports = function() {
         }
         return element > 1;
       }
-      const result = [4, 6, 8, 12].find(isPrime);
-      const result2 = [4, 5, 8, 12].find(isPrime);
+      const result = new ProtoArray(4, 6, 8, 12).find(isPrime);
+      const result2 = new ProtoArray(4, 5, 8, 12).find(isPrime);
 
       expect(result).to.eql(undefined);
       expect(result2).to.eql(5);  
     });
+
+    it('Find returns undefined if no value satisfies the given condition', function() {
+      const result = new ProtoArray(4, 6, 8, 12).find(num => num > 13);
+
+      expect(result).to.eql(undefined);
+    });
+
 
     it('MDN #1: Deleted origin elements are still visited', function() {
       const original = new ProtoArray(0, 1, 2, 3, 4, 5, 6);
