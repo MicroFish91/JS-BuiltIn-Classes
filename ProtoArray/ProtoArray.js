@@ -125,10 +125,9 @@ module.exports = class ProtoArray {
     }
   }
   forEach(callbackFn){
-    const array = this._getValues();
     for (let index = 0; index < this.length; index++){
       // MDN: forEach((element, index, array) => { ... } )
-      callbackFn(this.values[index], index, array);
+      callbackFn(this[index], index, this);
     }
   }
   includes(value, fromIndex = 0){
@@ -221,12 +220,13 @@ module.exports = class ProtoArray {
   }
   shift(){
     if(this.length === 0) { return undefined }
-    const shiftedVal = this.values[0];
-    delete this.values[0];
+    const shiftedVal = this[0];
+    delete this[0];
     this.length--;
     for(let index = 0; index < this.length; index++){
-      this.values[index] = this.values[index + 1];
+      this[index] = this[index + 1];
     }
+    delete this[this.length];
     return shiftedVal;
   }
   slice(start = 0, end = this.length){
