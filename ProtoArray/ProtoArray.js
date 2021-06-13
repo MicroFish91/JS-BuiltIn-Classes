@@ -28,20 +28,23 @@ module.exports = class ProtoArray {
       }
     }
   }
-  _display(){
-    console.log(this._getValues());
-  }
-  _standardizeForeignValues(values) {
-    return (ProtoArray.isProtoArray(values)) ? Object.values(values.values) : values;
-  }
   _getValues(){
     const newProto = { ...this };
     delete newProto['length'];
     return Object.values(newProto);
   }
   concat(...values){
-    const newArray = new ProtoArray(...this._getValues());
-    let val;
+    let newArray, val;
+    const { length } = this._getValues();
+    if(length === 0) {
+      newArray = new ProtoArray();
+    } else if (length === 1) {
+      newArray = new ProtoArray();
+      newArray.push(this[0]);
+    } else {
+      newArray = new ProtoArray(...this._getValues());
+    }
+    
     for(let index = 0; index < values.length; index++){
       val = values[index];
       if(val?.constructor?.name === "Array" || val?.constructor?.name === "ProtoArray"){
@@ -91,7 +94,7 @@ module.exports = class ProtoArray {
     for(let index = 0; index < this.length; index++){
       // find((element, index, array) => { ... } )
       if(callbackFn(this[index], index, this)) { 
-        return (this[index]); 
+        return this[index]; 
       }
     }
     return undefined;
@@ -109,12 +112,17 @@ module.exports = class ProtoArray {
     // To flat single level array is equivalent to
     // arr.reduce((acc, val) => acc.concat(val), [])
     // So use recursion
-    return depth > 0 ? this.reduce((acc, val) => {
-      if(Array.isArray(val) || ProtoArray.isProtoArray(val)) {
-        return acc.concat(val.flat(depth - 1));
-      }
-      return acc.concat(val);
-    }, []) : this.slice();
+    if(depth > 0){
+      return this.reduce((acc, val) => {
+        if(Array.isArray(val) || ProtoArray.isProtoArray(val)) {
+          return acc.concat(val.flat(depth - 1));
+        } else {
+          return acc.concat(val);
+        }
+      }, new ProtoArray());
+    } else {
+      return this.slice();
+    }
   }
   forEach(callbackFn){
     const array = this._getValues();
@@ -195,10 +203,9 @@ module.exports = class ProtoArray {
   }
   reduce(callbackFn, initValue){
     let accumulated = initValue;
-    const array = this._getValues();
     for(let index = 0; index < this.length; index++){
       // MDN: reduce((accumulator, currentValue, index, array) => { ... } )
-      accumulated = callbackFn(accumulated, this.values[index], index, array);
+      accumulated = callbackFn(accumulated, this[index], index, this);
     }
     return accumulated;
   }
@@ -225,9 +232,9 @@ module.exports = class ProtoArray {
   slice(start = 0, end = this.length){
     let newArray = new ProtoArray();
     for(let index = start; index < end; index++){
-      newArray.push(this.values[index]);
+      newArray.push(this[index]);
     }
-    return newArray._getValues();
+    return newArray;
   }
   some(callbackFn){
     const array = this._getValues();

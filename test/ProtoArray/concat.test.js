@@ -3,6 +3,14 @@ const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
   describe('ProtoArray .concat()', function(){
+    it ('Concat works with raw values', function() {
+      const result = new ProtoArray('a', 'b', 'c').concat(3);
+      const result2 = new ProtoArray().concat(1).concat(2).concat(3);
+
+      expect(result).to.eql({ length: 4, 0:'a', 1:'b', 2:'c', 3: 3 });
+      expect(result2).to.eql({ length: 3, 0: 1, 1: 2, 2: 3 });
+    });
+
     it('Concats another Array without mutating original', function() {
       const original = new ProtoArray('a', 'b', 'c');
       const numbers = new Array(1, 2, 3);
@@ -16,6 +24,7 @@ module.exports = function() {
       const original = new ProtoArray('a', 'b', 'c');
       const numbers = new ProtoArray(1, 2, 3);
       const result = original.concat(numbers);
+
 
       expect(original).to.eql({ length: 3, 0:'a', 1:'b', 2:'c' });
       expect(result).to.eql({ length: 6, 0:'a', 1:'b', 2:'c', 3:1, 4:2, 5:3 });
