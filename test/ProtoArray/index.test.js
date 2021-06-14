@@ -7,6 +7,7 @@ const protoFindTest = require('./find.test.js');
 const protoFindIndexTest = require('./findIndex.test.js');
 const protoFlatTest = require('./flat.test.js');
 const protoForEachTest = require('./forEach.test.js');
+const protoIncludesTest = require('./includes.test.js');
 
 describe('ProtoArray', function(){
   protoConstructorTest();
@@ -18,4 +19,5 @@ describe('ProtoArray', function(){
   protoFindIndexTest();
   protoFlatTest();
   protoForEachTest();
+  protoIncludesTest();
 });

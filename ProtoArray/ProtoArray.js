@@ -135,13 +135,13 @@ module.exports = class ProtoArray {
     if(fromIndex > this.length){
       return false;
     } else if (fromIndex < 0 && Math.abs(fromIndex) < this.length){
-      fromIndex = this.length - fromIndex;
+      fromIndex = this.length + fromIndex;
     } else if (fromIndex < 0 && Math.abs(fromIndex) >= this.length){
       fromIndex = 0;
     }
     // Main Solution
     for(let index = fromIndex; index < this.length; index++){
-      if(this.values[index] === value) {
+      if(this[index] === value || (Number.isNaN(this[index]) && Number.isNaN(value))) {
         return true;
       }
     }

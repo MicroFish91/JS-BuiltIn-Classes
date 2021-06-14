@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .every()', function(){
+  describe('#every()', function(){
     it('Every returns true when all values are in range', function() {
       const arrayOne = new ProtoArray(1, 30, 39, 29, 10, 13);
       const result = arrayOne.every(num => num < 40);

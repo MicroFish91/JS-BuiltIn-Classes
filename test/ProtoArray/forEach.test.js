@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .forEach()', function(){
+  describe('#forEach()', function(){
     it('forEach() loops through all the array elements', function() {
       const result = new ProtoArray();
       const array1 = new ProtoArray('a', 'b', 'c');

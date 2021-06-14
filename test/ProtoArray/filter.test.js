@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .filter()', function(){
+  describe('#filter()', function(){
     it('Filter operates with simple, one-line callbacks', function() {
       const result = new ProtoArray('spray', 'limit', 'elite', 'exuberant', 'destruction', 'present').filter(word => word.length > 6);
       const result2 = new ProtoArray(12, 5, 8, 130, 44).filter(value => value >= 10);

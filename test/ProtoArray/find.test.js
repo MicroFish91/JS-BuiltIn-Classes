@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .find()', function(){
+  describe('#find()', function(){
     it('Find returns the first value in a simple, one-line callback', function() {
       const result = new ProtoArray(5, 12, 8, 130, 44).find(element => element > 10);
       const result2 = new ProtoArray({name: 'apples', quantity: 2}, {name: 'bananas', quantity: 0}, {name: 'cherries', quantity: 5})

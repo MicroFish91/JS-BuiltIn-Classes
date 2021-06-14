@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .flat()', function(){
+  describe('#flat()', function(){
     it('Flat operates properly with no parameters passed', function() {
       const result = new ProtoArray(0, 1, 2, new ProtoArray(3, 4)).flat();
       const result2 = new ProtoArray(1, 2, new ProtoArray(3, 4, new ProtoArray(5, 6))).flat();

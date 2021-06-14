@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray Constructor', function(){
+  describe('#constructor()', function(){
     it('Constructs multiple parameters and all data types', function() {
       const result = new ProtoArray(13.5, true, "hello", [1, 2, 3], new ProtoArray(1, 2, 3), {key1: 'hello'});
       expect(result).to.eql({

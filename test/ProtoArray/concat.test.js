@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .concat()', function(){
+  describe('#concat()', function(){
     it ('Concat works with raw values', function() {
       const result = new ProtoArray('a', 'b', 'c').concat(3);
       const result2 = new ProtoArray().concat(1).concat(2).concat(3);

@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .fill()', function(){
+  describe('#fill()', function(){
     it('Fill operates with a single param', function() {
       const result = new ProtoArray(4).fill(5);
       const result2 = new ProtoArray(5).fill('hello');

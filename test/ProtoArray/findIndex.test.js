@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const ProtoArray = require('../../ProtoArray/ProtoArray.js');
 
 module.exports = function() {
-  describe('ProtoArray .findIndex()', function(){
+  describe('#findIndex()', function(){
     it('FindIndex returns the index of the first value in a simple, one-line callback', function() {
       const result = new ProtoArray(5, 12, 8, 130, 44).findIndex(element => element > 13);
       const result2 = new ProtoArray('hello', 'world', '!').findIndex(word => word === 'world');
