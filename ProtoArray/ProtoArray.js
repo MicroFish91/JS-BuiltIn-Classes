@@ -148,8 +148,15 @@ module.exports = class ProtoArray {
     return false;
   }
   indexOf(value, fromIndex = 0){
+    if(fromIndex > this.length){
+      return -1;
+    } else if (fromIndex < 0 && Math.abs(fromIndex) < this.length){
+      fromIndex = this.length + fromIndex;
+    } else if (fromIndex < 0 && Math.abs(fromIndex) >= this.length){
+      fromIndex = 0;
+    }
     for(let index = fromIndex; index < this.length; index++){
-      if(this.values[index] === value){
+      if(this[index] === value){
         return index;
       }
     }
