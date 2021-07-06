@@ -9,6 +9,7 @@ const protoFlatTest = require("./flat.test.js");
 const protoForEachTest = require("./forEach.test.js");
 const protoIncludesTest = require("./includes.test.js");
 const protoIndexOfTest = require("./indexOf.test.js");
+const protoIsProtoArray = require("./isProtoArray.test");
 const protoJoinTest = require("./join.test");
 
 describe("ProtoArray", function () {
@@ -23,5 +24,6 @@ describe("ProtoArray", function () {
   protoForEachTest();
   protoIncludesTest();
   protoIndexOfTest();
+  protoIsProtoArray();
   protoJoinTest();
 });
