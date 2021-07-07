@@ -211,10 +211,9 @@ module.exports = class ProtoArray {
   }
   map(callbackFn) {
     let mappedArray = new ProtoArray();
-    const array = this._getValues();
     for (let index = 0; index < this.length; index++) {
       // MDN: map((element, index, array) => { ... } )
-      mappedArray.push(callbackFn(this.values[index], index, array));
+      mappedArray.push(callbackFn(this[index], index, this));
     }
     return mappedArray;
   }

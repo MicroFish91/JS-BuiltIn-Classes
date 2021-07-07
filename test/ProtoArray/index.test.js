@@ -9,9 +9,10 @@ const protoFlatTest = require("./flat.test.js");
 const protoForEachTest = require("./forEach.test.js");
 const protoIncludesTest = require("./includes.test.js");
 const protoIndexOfTest = require("./indexOf.test.js");
-const protoIsProtoArray = require("./isProtoArray.test");
+const protoIsProtoArrayTest = require("./isProtoArray.test");
 const protoJoinTest = require("./join.test");
-const protoLastIndexOf = require("./lastIndexOf.test");
+const protoLastIndexOfTest = require("./lastIndexOf.test");
+const protoMapTest = require("./map.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -25,7 +26,8 @@ describe("ProtoArray", function () {
   protoForEachTest();
   protoIncludesTest();
   protoIndexOfTest();
-  protoIsProtoArray();
+  protoIsProtoArrayTest();
   protoJoinTest();
-  protoLastIndexOf();
+  protoLastIndexOfTest();
+  protoMapTest();
 });
