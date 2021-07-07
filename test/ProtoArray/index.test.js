@@ -13,6 +13,7 @@ const protoIsProtoArrayTest = require("./isProtoArray.test");
 const protoJoinTest = require("./join.test");
 const protoLastIndexOfTest = require("./lastIndexOf.test");
 const protoMapTest = require("./map.test");
+const protoPushTest = require("./push.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -30,4 +31,5 @@ describe("ProtoArray", function () {
   protoJoinTest();
   protoLastIndexOfTest();
   protoMapTest();
+  protoPushTest();
 });

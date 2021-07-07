@@ -217,9 +217,12 @@ module.exports = class ProtoArray {
     }
     return mappedArray;
   }
-  push(val) {
-    this[this.length] = val;
-    this.length++;
+  push(...val) {
+    for (let index = 0; index < val.length; index++) {
+      this[this.length] = val[index];
+      this.length++;
+    }
+    return this.length;
   }
   pop() {
     this.length--;
