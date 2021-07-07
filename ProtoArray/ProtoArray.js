@@ -203,7 +203,7 @@ module.exports = class ProtoArray {
     }
 
     for (let index = fromIndex; index >= 0; index--) {
-      if (this.values[index] === value) {
+      if (this[index] === value) {
         return index;
       }
     }

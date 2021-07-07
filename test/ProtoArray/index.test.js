@@ -11,6 +11,7 @@ const protoIncludesTest = require("./includes.test.js");
 const protoIndexOfTest = require("./indexOf.test.js");
 const protoIsProtoArray = require("./isProtoArray.test");
 const protoJoinTest = require("./join.test");
+const protoLastIndexOf = require("./lastIndexOf.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -26,4 +27,5 @@ describe("ProtoArray", function () {
   protoIndexOfTest();
   protoIsProtoArray();
   protoJoinTest();
+  protoLastIndexOf();
 });
