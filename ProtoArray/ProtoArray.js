@@ -231,11 +231,19 @@ module.exports = class ProtoArray {
     return val;
   }
   reduce(callbackFn, initValue) {
+    let startIndex = 0;
     let accumulated = initValue;
-    for (let index = 0; index < this.length; index++) {
+
+    if (initValue === undefined) {
+      accumulated = this[0];
+      startIndex = 1;
+    }
+
+    for (let index = startIndex; index < this.length; index++) {
       // MDN: reduce((accumulator, currentValue, index, array) => { ... } )
       accumulated = callbackFn(accumulated, this[index], index, this);
     }
+
     return accumulated;
   }
   reverse() {

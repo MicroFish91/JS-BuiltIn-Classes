@@ -15,6 +15,7 @@ const protoLastIndexOfTest = require("./lastIndexOf.test");
 const protoMapTest = require("./map.test");
 const protoPushTest = require("./push.test");
 const protoPopTest = require("./pop.test");
+const protoReduceTest = require("./reduce.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -34,4 +35,5 @@ describe("ProtoArray", function () {
   protoMapTest();
   protoPushTest();
   protoPopTest();
+  protoReduceTest();
 });
