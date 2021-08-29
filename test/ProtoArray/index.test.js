@@ -20,6 +20,7 @@ const protoReverseTest = require("./reverse.test");
 const protoShiftTest = require("./shift.test");
 const protoSliceTest = require("./slice.test");
 const protoSomeTest = require("./some.test");
+const protoSpliceTest = require("./splice.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -44,4 +45,5 @@ describe("ProtoArray", function () {
   protoShiftTest();
   protoSliceTest();
   protoSomeTest();
+  protoSpliceTest();
 });

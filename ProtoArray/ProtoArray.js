@@ -311,17 +311,25 @@ module.exports = class ProtoArray {
     if (deleteCount > this.length - start) {
       deleteCount = this.length - start;
     } else if (deleteCount <= 0 && !values) {
-      return [];
+      return new ProtoArray();
     }
 
     // Main
-    const spliced = [...this.slice(start, start + deleteCount)];
-    this.values = new ProtoArray(
-      ...this.slice(0, start),
+    const spliced = this.slice(start, start + deleteCount);
+    const newArray = new ProtoArray(
+      ...this.slice(0, start)._getValues(),
       ...values,
-      ...this.slice(start + deleteCount, this.length)
-    ).values;
-    this.length = this.length + values.length - deleteCount;
+      ...this.slice(start + deleteCount, this.length)._getValues()
+    );
+
+    // Assign new array to this without reinitializing
+    Object.keys(this).forEach((key) => {
+      delete this[key];
+    });
+    Object.keys(newArray).forEach((key) => {
+      this[key] = newArray[key];
+    });
+
     return spliced;
   }
   toString() {
