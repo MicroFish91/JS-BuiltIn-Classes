@@ -22,6 +22,7 @@ const protoSliceTest = require("./slice.test");
 const protoSomeTest = require("./some.test");
 const protoSpliceTest = require("./splice.test");
 const protoToStringTest = require("./toString.test");
+const protoUnshiftTest = require("./unshift.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -48,4 +49,5 @@ describe("ProtoArray", function () {
   protoSomeTest();
   protoSpliceTest();
   protoToStringTest();
+  protoUnshiftTest();
 });

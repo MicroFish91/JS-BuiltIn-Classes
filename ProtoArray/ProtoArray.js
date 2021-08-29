@@ -38,6 +38,7 @@ module.exports = class ProtoArray {
     delete newProto["length"];
     return Object.values(newProto);
   }
+  set() {}
   concat(...values) {
     let newArray, val;
     const { length } = this._getValues();
@@ -336,7 +337,14 @@ module.exports = class ProtoArray {
     return this.join(",");
   }
   unshift(...values) {
+    const placeholder = { ...this };
+    for (let index = 0; index < this.length; index++) {
+      this[index + values.length] = placeholder[index];
+    }
+    for (let index = 0; index < values.length; index++) {
+      this[index] = values[index];
+    }
     this.length += values.length;
-    this.values = new ProtoArray(...values, ...this._getValues()).values;
+    return this.length;
   }
 };
