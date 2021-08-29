@@ -17,6 +17,7 @@ const protoPushTest = require("./push.test");
 const protoPopTest = require("./pop.test");
 const protoReduceTest = require("./reduce.test");
 const protoReverseTest = require("./reverse.test");
+const protoShiftTest = require("./shift.test");
 
 describe("ProtoArray", function () {
   protoConstructorTest();
@@ -38,4 +39,5 @@ describe("ProtoArray", function () {
   protoPopTest();
   protoReduceTest();
   protoReverseTest();
+  protoShiftTest();
 });
