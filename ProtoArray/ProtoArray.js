@@ -271,6 +271,18 @@ module.exports = class ProtoArray {
   }
   slice(start = 0, end = this.length) {
     let newArray = new ProtoArray();
+    if (start >= this.length) {
+      return newArray;
+    }
+    if (start < 0) {
+      start = this.length + start;
+    }
+    if (end < 0) {
+      end = this.length + end;
+    }
+    if (end > this.length) {
+      end = this.length;
+    }
     for (let index = start; index < end; index++) {
       newArray.push(this[index]);
     }
