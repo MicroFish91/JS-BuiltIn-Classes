@@ -248,13 +248,13 @@ module.exports = class ProtoArray {
   }
   reverse() {
     let front, back;
-    for (let index = 0; index < this.length / 2 - 1; index++) {
-      front = this.values[index];
-      back = this.values[this.length - index];
-      this.values[index] = back;
-      this.values[this.length - index] = front;
+    for (let index = 0; index <= (this.length - 1) / 2; index++) {
+      front = this[index];
+      back = this[this.length - index - 1];
+      this[index] = back;
+      this[this.length - index - 1] = front;
     }
-    return this.values;
+    return this;
   }
   shift() {
     if (this.length === 0) {
