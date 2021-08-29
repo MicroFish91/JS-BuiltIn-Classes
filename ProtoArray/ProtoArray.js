@@ -289,10 +289,10 @@ module.exports = class ProtoArray {
     return newArray;
   }
   some(callbackFn) {
-    const array = this._getValues();
+    const array = new ProtoArray(...this._getValues());
     for (let index = 0; index < this.length; index++) {
       // some((element, index, array) => { ... } )
-      if (callbackFn(this.values[index], index, array)) {
+      if (callbackFn(this[index], index, array)) {
         return true;
       }
     }
