@@ -38,7 +38,6 @@ module.exports = class ProtoArray {
     delete newProto["length"];
     return Object.values(newProto);
   }
-  set() {}
   concat(...values) {
     let newArray, val;
     const { length } = this._getValues();
@@ -70,7 +69,6 @@ module.exports = class ProtoArray {
     let length = this.length;
     for (let index = 0; index < length; index++) {
       // every((element, index, array) => { ... } )
-      // Passed "this" instead of "this.values" to match MDN test behavior
       if (!callbackFn(this[index], index, this)) {
         return false;
       }
