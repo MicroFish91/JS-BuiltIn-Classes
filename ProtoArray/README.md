@@ -378,7 +378,7 @@ The number of times we must loop proportionally increases with the number of val
 
 | Name | Best | Average | Worst | Memory | In-Place |
 | ---- | :--: | :-----: | :---: | :----: | -------- |
-| push |  n   |    n    |   n   |   n    | Y        |
+| push |  1   |    n    |   n   |   n    | Y        |
 
 Partial sample snippet:
 
