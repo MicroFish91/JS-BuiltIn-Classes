@@ -6,6 +6,8 @@ Included is a rather basic test section that I wrote using Mocha and Chai. The t
 
 Note: For space complexity, we are generally referring to auxiliary space - the extra space or temporary space used by an algorithm.
 
+Testing can be viewed [here](../test/ProtoArray).
+
 ## Table of Contents
 
 ### [ProtoArray](#ProtoArray-Methods)
